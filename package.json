@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run eslint ; npm run clean && npm run copy-files && npm -s run browserify:dev > dist/bundle.js && npm -s run styles:dev && parallelshell 'npm run browser-sync' 'npm run watch:js' 'npm run watch:scss' 'npm run watch:html'",
-    "prod": "npm run eslint ; npm run build && parallelshell 'npm run browser-sync' 'npm run watch:js:prod' 'npm run watch:scss:prod' 'npm run watch:html'",
+    "dev": "npm run eslint ; npm run clean && npm run copy-files && npm -s run browserify:dev > dist/bundle.js && npm -s run styles:dev && parallelshell 'npm run browser-sync:dev' 'npm run watch:js' 'npm run watch:scss' 'npm run watch:html'",
+    "prod": "npm run eslint ; npm run build && parallelshell 'npm run browser-sync:prod' 'npm run watch:js:prod' 'npm run watch:scss:prod' 'npm run watch:html'",
     "clean": "rm -rf dist/ && mkdir dist",
     "copy-files": "cp src/index.html dist/",
     "browserify:dev": "NODE_ENV=development browserify --extension=jsx src/index.jsx -t babelify",
     "browserify:prod": "NODE_ENV=production browserify --extension=jsx src/index.jsx -t babelify",
     "node-sass": "node-sass src/index.scss",
-    "browser-sync": "browser-sync start --server --reload-delay 1000 --no-open --index dist/index.html --serveStatic dist --files 'dist/index.html' 'dist/styles.css'",
+    "browser-sync:prod": "browser-sync start --server --reload-delay 1000 --no-open --index dist/index.html --serveStatic dist --files 'dist/index.html' 'dist/styles.css'",
+    "browser-sync:dev": "browser-sync start --server --no-open --index dist/index.html --serveStatic dist --files 'dist/index.html' 'dist/styles.css'",
     "reload": "browser-sync reload",
     "watch:js": "onchange 'src/**/*.js' 'src/**/*.jsx' -- npm run onchange:js",
     "watch:scss": "onchange 'src/**/*.scss' -- npm -s run onchange:scss",
@@ -30,7 +31,8 @@
     "build": "npm run clean && npm run copy-files && npm run build:js && npm run build:scss",
     "build:js": "if [ -f dist/bundle.js ]; then rm dist/bundle.js; fi && npm -s run browserify:prod | uglifyjs -m > dist/bundle.js",
     "build:scss": "npm -s run styles | npm -s run postcss:prod",
-    "eslint": "eslint src/**/*.js"
+    "eslint": "eslint src/**/*.js",
+    "test": "tape src/**/*.spec.js | faucet"
   },
   "author": "jpstone",
   "devDependencies": {
@@ -49,10 +51,12 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
+    "faucet": "0.0.1",
     "node-sass": "^3.13.0",
     "onchange": "^3.0.2",
     "parallelshell": "^2.0.0",
     "postcss-cli": "^2.6.0",
+    "tape": "^4.6.3",
     "uglify-js": "^2.7.5"
   },
   "dependencies": {
