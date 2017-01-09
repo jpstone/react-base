@@ -10,7 +10,7 @@
     "browserify:dev": "NODE_ENV=development browserify --extension=jsx src/index.jsx -t babelify",
     "browserify:prod": "NODE_ENV=production browserify --extension=jsx src/index.jsx -t babelify",
     "node-sass": "node-sass src/index.scss",
-    "browser-sync": "browser-sync start --server dist --no-open --files 'dist/index.html' 'dist/styles.css' && echo $NODE_ENV",
+    "browser-sync": "browser-sync start --server dist --no-open --files 'dist/index.html' 'dist/styles.css'",
     "reload": "browser-sync reload",
     "watch:js": "onchange 'src/**/*.js' 'src/**/*.jsx' -- npm run onchange:js",
     "watch:scss": "onchange 'src/**/*.scss' -- npm -s run onchange:scss",
