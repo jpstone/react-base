@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-const Container = require('./components/container');
+const Container = require('./components/container/container');
 
 require('babel-polyfill');
 
